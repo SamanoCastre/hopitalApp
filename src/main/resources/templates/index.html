@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Rechercher un hopital</title>
+	</head>
+	<body>
+		<div layout:fragment="content">
+		    <div class="col-md-6">
+		    	<div class="panel panel-primary">
+		    		<div class="panel-heading">Rechercher l'hopital le plus proche</div>
+		    		<div class="panel-body">
+						    <!-- Error Alert -->
+						    <div class="alert alert-danger" th:if="${searchError}">
+						    	Une erreur s'est produite. Le lieu d'incident doit être reseigné comme suit. Exemple : 31509 Toulouse
+						    </div>
+		    			
+		    			<form th:action="@{/rechercherHopital}" method="post">
+		    				<div class="form-group">
+		    					<label> Lieu incident :</label>
+		    					<input type="text" name="lieuIncident" th:value="${lieuIncident}" placeHolder="Ex: 31509 Toulouse"/>
+		    				</div>
+		    				<div class="form-group">
+		    					<label>Spécialité :</label>
+		    					
+							      <select class="selectpicker" name="specialite" data-show-subtext="true" data-live-search="true">
+							          <option th:each="sp:${specialites}" th:data-subtext="${sp.groupe}" th:value="${sp.id}" th:text="${sp.name}"></option>
+							      </select>
+		    				</div>
+		    				<div>
+		    					<button type="submit" class="btn btn-primary">Lancer la recherche</button>
+		    				</div>
+		    				
+		    			</form>
+		    		</div>
+		    	</div>
+		    	<div class="panel panel-primary" th:if="${hopital}">
+		    		<div class="panel-heading">Hopital le plus proche trouvé</div>
+		    		<div class="panel-body">
+		    		
+		    		<div>
+		    			  <label>Nom : </label>
+		    			  <label th:text="${hopital.name}"></label>
+		    			</div>
+		    			<div>
+		    			  <label>Addresse : </label>
+		    			  <address >
+		    			       <ul>
+		    			       		<li><span th:text="${hopital.address.numero} "></span> <span th:text="${hopital.address.rue}"></span></li>
+		    			       		<li><span th:text="${hopital.address.codePostal}"></span> <span th:text="${hopital.address.ville}"></span></li>
+		    			       		<li th:text="${hopital.address.pays}"></li>
+		    			       </ul>
+		    			  </address>
+		    			</div>
+		    			<form th:action="@{/reserverHopital}" method="post">
+		    				<div class="form-group">
+		    					<label> Intervenant :</label>
+		    					<input type="text" name="intervenant" th:value="${intervenant}" placeHolder="Saisir votre nom"/>
+		    					<input type="hidden" name="hopital_id" th:value="${hopital.id}"/>
+		    					<input type="hidden" name="specialite_id" th:value="${specialite_id}"/>
+		    				</div>
+			    			<div>
+			    			   <button type="submit" class="btn btn-primary" th:if="${reservation} == null">Réserver cet hopital</button>
+			    			</div>
+		    			</form>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="panel panel-primary" th:if="${reservation}">
+		    		<div class="panel-heading">Réponse réservation</div>
+		    		<div class="panel-body">
+		    			<!-- Success Alert -->
+						    <div class="alert alert-success" th:if="${reservationSuccess}">
+						            Votre demande de réservation a bien été enregistrée. Merci
+						    </div>
+						    <div class="alert alert-error" th:if="${reservationError}">
+						            Une erreur s'est produite lors de l'enregistrement de la réservation.
+						    </div>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+</html>
