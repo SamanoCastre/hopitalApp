@@ -2,9 +2,6 @@ package com.hopital.app.entities;
 
 import java.util.Date;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-@EntityScan
 public class Specialite {
 	
 	private int id;

@@ -16,7 +16,8 @@ public class SpecialiteServiceImpl implements ISpecialiteService{
 	
 	@Override
 	public List<Specialite> getSpecialites() {
-	    return this.specialiteConsumer.getSpecialites();
+		List<Specialite> response = this.specialiteConsumer.getSpecialites();
+		return response;
 		/*
 		Specialite[] specialites = null;
 		try {

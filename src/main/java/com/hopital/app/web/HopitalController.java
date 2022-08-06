@@ -53,7 +53,7 @@ public class HopitalController {
 				throw new Exception("RechercheRequestDTO invalid");
 			}
 			
-			Hopital hopital = this.hopitalService.rechercherHopital(request);
+			Hopital hopital = this.hopitalService.rechercherHopital(request.getLieuIncident(), request.getSpecialite());
 			if(hopital == null) {
 				throw new Exception("Hopital null from Rest API");
 			}

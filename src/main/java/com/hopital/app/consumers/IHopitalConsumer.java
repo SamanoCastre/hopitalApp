@@ -11,7 +11,7 @@ import com.hopital.app.entities.Specialite;
 
 
 
-@FeignClient(name="hopital-service", url="${HOPITAL_SERVICE_URI}")
+@FeignClient(name="hopital-service", url="${GATEWAY_URI}")
 public interface IHopitalConsumer {
 	
 	@GetMapping("/hopital")
