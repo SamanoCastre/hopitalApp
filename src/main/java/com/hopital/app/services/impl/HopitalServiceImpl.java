@@ -13,11 +13,9 @@ public class HopitalServiceImpl implements IHopitalService {
 	@Autowired
 	IHopitalConsumer hopitalConsumer;
 	
-	
-
 	@Override
 	public Hopital rechercherHopital(String lieuIncident, int specialite_id) {
 		return  this.hopitalConsumer.rechercherHopital(lieuIncident, specialite_id);
-	}	
+	}
 
 }
