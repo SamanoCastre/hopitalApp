@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hopital.app.dtos.ReservationRequestDTO;
 import com.hopital.app.entities.Reservation;
 
-@FeignClient(name="reservation-service", url="${GATEWAY_URI}")
+@FeignClient(name="reservation-service", url="${gateway.service.uri}", configuration = FeignClientConfiguration.class)
 public interface IReservationConsumer {
 	@PostMapping("/reservation")
 	public Reservation reserverLitHopital(@ModelAttribute("reservationDTO")  ReservationRequestDTO request);
